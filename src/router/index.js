@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ProductListLogin from '../views/ProductListLogin.vue';
 import ProductList from '../views/ProductList.vue';
+import Todolist from '../views/products/TodoList.vue';
 
 const routes = [
     {
@@ -9,9 +10,14 @@ const routes = [
         component: ProductListLogin
     },
     {
-        path: '/ProductList',
+        path: '/productlist',
         name: 'ProductList',
         component: ProductList
+    },
+    {
+        path: '/todolist',
+        name: 'Todolist',
+        component: Todolist
     },
 ];
 

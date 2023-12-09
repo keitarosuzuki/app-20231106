@@ -26,7 +26,7 @@ export default {
     mounted() {
         this.auth = getAuth();
         onAuthStateChanged(this.auth, (user) => {
-            if (user) this.$router.push("/ProductList");
+            if (user) this.$router.push("/productlist");
         });
     },
     methods: {
@@ -37,7 +37,7 @@ export default {
                     this.email,
                     this.password
                 );
-                this.$router.push("/ProductList");
+                this.$router.push("/productlist");
             } catch (error) {
                 console.error(error.message);
             }
@@ -49,9 +49,9 @@ export default {
 <style>
 .login-form-wrapper {
     text-align: center;
+}
 
-    >form>* {
-        margin-bottom: 10px;
-    }
+.login-form-wrapper>form>* {
+    margin-bottom: 10px;
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
     <div class="bg-dark" style="height: 100vh;">
-        <div class="btn-wrapper position-absolute top-50 start-50 translate-middle">
-            <div>
-                <button type="submit" class="btn btn-outline-light btn-lg">login</button>
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div class="btn-list-wrapper">
+                <div v-for="data in productList" :key="data" class="btn-wrapper">
+                    <button type="submit" class="btn btn-outline-light btn-lg" @click="routingProductPage(data)">{{ data.name }}</button>
+                </div>
             </div>
-            <div>
-                <button type="submit" class="btn btn-outline-light btn-lg">login</button>
-            </div>
-            <div>
+            <div class="btn-wrapper">
                 <button type="submit" class="btn btn-outline-light btn-lg" @click="logout">logout</button>
             </div>
         </div>
@@ -16,11 +15,13 @@
 
 <script>
 import { getAuth, signOut } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 export default {
     data() {
         return {
             auth: '',
+            data: ''
         };
     },
     mounted() {
@@ -34,16 +35,40 @@ export default {
             } catch (error) {
                 console.error(error.message);
             }
-        }
+        },
+        routingProductPage(data) {
+            if (!this.data.public) {
+                alert("仕掛中"); 
+                return;
+            }
+            this.$router.push("/" + data.path);
+        },
+    },
+    computed: {
+        productList() {
+            const db = getDatabase();
+            const productlist = ref(db, 'productlist/');
+            onValue(productlist, (snapshot) => {
+                this.data = snapshot.val();
+            });
+            return this.data;
+        },
     },
 };
 </script>
 
 <style>
+.btn-list-wrapper {
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+.btn-list-wrapper::-webkit-scrollbar {
+    display:none;
+}
+
 .btn-wrapper {
-    >* {
-        text-align: center;
-        margin-bottom: 10px;
-    }
+    margin-top: 10px;
+    text-align: center;
 }
 </style>
