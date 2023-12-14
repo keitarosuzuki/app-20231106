@@ -1,5 +1,5 @@
 <template>
-    <button :type="this.type" class="btn btn-outline-light btn-lg">Login</button>
+    <button :type="this.type" class="btn btn-outline-light btn-lg btn-top">{{ this.name }}</button>
 </template>
 
 <script>
@@ -10,21 +10,16 @@ export default {
             type: String,
             default: ''
         },
+        name: {
+            type: String,
+            default: ''
+        },
     },
-    computed: {
-        hoge() {
-            return this.$store.getters.count;
-        }
-    }
 };
 </script>
 
 <style>
-/* .login-form-wrapper {
-    text-align: center;
+.btn-top {
+    margin-top: 10px;
 }
-
-.login-form-wrapper>form>* {
-    margin-bottom: 10px;
-} */
 </style>

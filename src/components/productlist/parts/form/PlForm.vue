@@ -1,9 +1,9 @@
 
 <template>
-    <form @submit.prevent="login">
-        <pl-input :type="'email'" v-model="email" @changeInputVal="changeInputVal(email)" />
-        <pl-input :type="'password'" v-model="password" @changeInputVal="changeInputVal(password)" />
-        <pl-button :type="'submit'" />
+    <form @submit.prevent="submitForm" class="form-el">
+        <pl-input :type="'email'" v-model="formData.eMail" />
+        <pl-input :type="'password'" v-model="formData.passWord" />
+        <pl-button :type="'submit'" :name="'Login'" />
     </form>
 </template>
 
@@ -13,35 +13,39 @@ import PlButton from "@/components/productlist/parts/button/PlButton.vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
-    data() {
-        return {
-            email: "",
-            password: "",
-        };
-    },
-    methods: {
-        async login() {
-            try {
-                const auth = getAuth();
-                await signInWithEmailAndPassword(
-                    auth,
-                    this.email,
-                    this.password
-                );
-                console.log("OK")
-            } catch (error) {
-                console.error(error.message);
-            }
-        },
-        changeInputVal(val) {
-            console.log(val);
-        }
-    },
     components: {
         PlInput,
         PlButton,
     },
+    data() {
+        return {
+            formData: {
+                eMail: '',
+                passWord: '',
+            }
+        };
+    },
+    methods: {
+        async submitForm() {
+            try {
+                const auth = getAuth();
+                await signInWithEmailAndPassword(
+                    auth,
+                    this.formData.eMail,
+                    this.formData.passWord,
+                );
+                console.log("OK");
+                this.$emit("login");
+            } catch (error) {
+                console.error(error.message);
+            }
+        },
+    },
 };
 </script>
 
-<style></style>
+<style>
+.form-el > * {
+    margin-top: 10px;
+}
+</style>

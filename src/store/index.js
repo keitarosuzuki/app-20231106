@@ -1,34 +1,23 @@
 import { createStore } from 'vuex';
 
-// 新しいストアインスタンスを作成します
 const store = createStore({
     actions: {
-        setHoge({ commit }, payload) {
-            commit('setHoge', payload);
-        },
-        setPageType({ commit }, payload) {
-            commit('setPageType', payload);
-        }
+        // setAuth({ commit }, payload) {
+        //     commit('setAuth', payload);
+        // },
     },
     mutations: {
-        setHoge(state, payload) {
-            state.count = payload;
-        },
-        setPageType(state, payload) {
-            state.pagetype = payload;
-        }
+        // setAuth(state, payload) {
+        //     state.auth = payload;
+        // },
     },
     state: {
-        count: 0,
-        pagetype: 'LOGIN',
+        // auth: '',
     },
     getters: {
-        count(state) {
-            return state.count;
-        },
-        pagetype(state) {
-            return state.pagetype;
-        },
+        // auth(state) {
+        //     return state.auth;
+        // },
     },
 })
 
